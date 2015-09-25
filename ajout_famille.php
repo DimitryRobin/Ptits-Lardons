@@ -3,13 +3,12 @@ session_start();
 
 include_once('class/autoload.php');
 
-
 $site = new page_base_securisee_admin('Ajout famille');
 $site->js='jquery.validate.min';
 $site->js='messages_fr';
 $site->js='jquery.tooltipster.min';
 $site->style='tooltipster';
-$site->style='perso0';
+$site->style='perso';
 
 
 $controleur=new controleur();
