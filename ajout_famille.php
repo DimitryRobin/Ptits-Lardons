@@ -9,7 +9,7 @@ $site->js='jquery.validate.min';
 $site->js='messages_fr';
 $site->js='jquery.tooltipster.min';
 $site->style='tooltipster';
-$site->style='perso';
+$site->style='perso0';
 
 
 $controleur=new controleur();
