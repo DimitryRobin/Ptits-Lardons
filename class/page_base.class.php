@@ -80,7 +80,7 @@ class page_base {
 	protected function affiche_entete() {
 		echo'
            <header>
-				<img src="./image/logo.jpg"" class="logo" alt="logo"/>
+				<img src="./image/bacon-bunting.jpg"" class="logo" alt="logo"/>
 				<h1>
 					<span>Ptits-Lardons</span>
 				</h1>
@@ -128,10 +128,10 @@ class page_base {
 			
 				<article>
 					<h3>Ptits-Lardons</h3>
-										<p>12 rue des gosses</br>
+										<p>12 rue des gones</br>
 										49000 ANGERS</br>
 										Tel : 02.41.27.11.71</br>
-										Mail : pbdc49@gmail.com</p>
+										Mail : pbdc49@gmai.com</p>
 										
 											<a  href="contact.php" class="button">Contact</a>
                 </article>
