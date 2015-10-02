@@ -307,13 +307,13 @@ class controleur {
 					<input type="password" name="mp" id="mp" placeholder="Mot de passe" required/></br>
 					<input type="radio" name="rblogin" id="rbf"  value="rbf" required/>Famille
 					<input type="radio" name="rblogin" id="rba" value="rba" required/>Administrateur</br></br>
-					<input type="submit" name="send" class="button" value="Envoi login" />
+					<input type="submit" name="send" class="button" value="Connexion" />
 				</form>
 				<script>function hd(){ $("#modal").hide();}</script>
 				<div  id="modal" >
 										<h1>Informations !</h1>
 										<div id="dialog1" ></div>
-										<a class="no" onclick="hd();">OK</a>
+										<a class="no" href="index.php">OK</a>
 				</div>
 			<article >
 	<script>
