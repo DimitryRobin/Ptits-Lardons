@@ -80,7 +80,7 @@ class page_base {
 	protected function affiche_entete() {
 		echo'
            <header>
-				<img src="./image/bacon-bunting.jpg"" class="logo" alt="logo"/>
+				<img src="./image/prodG9.png"" class="logo" alt="logo"/>
 				<h1>
 					<span>Ptits-Lardons</span>
 				</h1>
