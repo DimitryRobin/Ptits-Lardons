@@ -146,7 +146,7 @@ class page_base {
 			<footer>
 				<p>Site de la crèche des Ptits-Lardons -  ANGERS </p>
 				<p id="copyright">
-				créé par _____________________________________________
+				créé par Pierre HERMANGE, Jordan JAMAIN & Dimitry ROBIN.
 				SSII 1FO@SIO - technologies mises en oeuvre PHP objet - jquery - Ajax
 				<a href="http://chevrollier.e-lyco.fr/">Chevrollier</a> 
 				</p>
