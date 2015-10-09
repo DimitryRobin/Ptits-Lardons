@@ -17,6 +17,7 @@ class page_base_securisee_admin extends page_base_securisee_famille {
 						<ul>
 							<li><a href="ajout_famille.php">Inscrire une famille</a></li>
 							<li><a href="modif_famille.php">Modifier une famille</a></li>
+							<li><a href="supp_famille.php">Supprimer une famille</a></li>
 						</ul>
 					</li>
 					

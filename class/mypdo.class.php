@@ -186,10 +186,22 @@ class mypdo extends PDO{
     		{
     			return false;
     		}
-    		return $result;
-    
+    		return $result;    
     	}
     	return false;
+    }
+	
+	public function supp_famille_admin($tab)
+    {
+		$data 			= array();
+		
+    	$requete='delete from famille where identifiant='.$this->connexion ->quote($tab['identifiant']) .';';
+    	$result=$this->connexion ->query($requete);
+		
+    		$data['success'] = true;
+    		$data['message'] = 'Supression famille ok!';
+			
+    	return $data;
     }
 }
 ?>
