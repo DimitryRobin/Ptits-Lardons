@@ -306,13 +306,8 @@ class controleur {
 					<input type="text" name="id" id="id" placeholder="Identifiant" required/>
 					<input type="password" name="mp" id="mp" placeholder="Mot de passe" required/></br>
 					<input type="radio" name="rblogin" id="rbf"  value="rbf" required/>Famille
-<<<<<<< HEAD
 					<input type="radio" name="rblogin" id="rbper"  value="rbper" required/>Personnel
 					<input type="radio" name="rblogin" id="rba" value="rba" required/>Administrateur</br></br>
-=======
-					<input type="radio" name="rblogin" id="rba" value="rba" required/>Administrateur
-					<input type="radio" name="rblogin" id="rbp" value="rbp" required/>Personnel</br></br>
->>>>>>> origin/master
 					<input type="submit" name="send" class="button" value="Connexion" />
 				</form>
 				<script>function hd(){ $("#modal").hide();}</script>
