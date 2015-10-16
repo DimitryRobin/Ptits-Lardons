@@ -1,4 +1,4 @@
-<?php
+ <?php
 class controleur {
 
 	private $vpdo;
@@ -632,8 +632,8 @@ class controleur {
 					<input type="text" name="tel13" id="tel13" placeholder="Tel travail" value="' . $tel13 . '" /></br>
 					
 					<input type="radio" name="rbfonction1" id="rbp"  value="rbp" ' . $checkpere1 . ' required/>Père
-					<input type="radio" name="rbfonction1" id="rbm"  value="rbm" ' . $checkmere1 . 'required/>Mere
-					<input type="radio" name="rbfonction1" id="rba"  value="rba" ' . $checkautre1 . 'required/>Autre
+					<input type="radio" name="rbfonction1" id="rbm"  value="rbm" ' . $checkmere1 . ' required/>Mere
+					<input type="radio" name="rbfonction1" id="rba"  value="rba" ' . $checkautre1 . ' required/>Autre
 					<input type="text" name="fonction1" id="fonction1" placeholder="Fonction representant legal 1" value="' . $autre1 . '" /></br></br>
 
 					Représentant légal 2</br></br>
