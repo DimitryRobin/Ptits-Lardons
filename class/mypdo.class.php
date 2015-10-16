@@ -52,6 +52,22 @@ class mypdo extends PDO{
     	}
     	return null;
     }
+	
+	public function trouve_enfant($idenfant)
+    {
+    	$requete='select * from enfant where id_enfant='.$idenfant.';';
+    	$result=$this->connexion ->query($requete);
+    	if ($result)
+    
+    	{
+    		if ($result-> rowCount()==1)
+    		{
+    			return ($result->fetch(PDO::FETCH_OBJ));
+    		}
+    	}
+    	return null;
+    }
+	
     public function trouve_famille($idfamille)
     {
     	$requete='select * from famille where id_famille='.$idfamille.';';

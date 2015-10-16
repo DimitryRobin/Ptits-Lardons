@@ -825,6 +825,196 @@ class controleur {
 		';
 		return $form;
 	}
+	
+
+public function retourne_formulaire_enfant($type,$idenfant="") {
+		$form = '';		
+		$nom = '';
+		$prenom = '';
+		$specialite = '';
+		$commentaire = '';
+		$id_famille = '' ;
+		
+		
+
+		if ($type == 'Ajout') {
+			$titreform = 'Formulaire ajout enfant';
+			$libelbutton = 'Ajouter';
+		}
+		if ($type == 'Supp') {
+			$titreform = 'Formulaire Suppression inscription enfant';
+			$libelbutton = 'Supprimer';
+		}
+		if ($type == 'Modif') {
+			$titreform = 'Formulaire Modification enfant';
+			$libelbutton = 'Modifier';
+		}
+		if ($type == 'Supp' || $type == 'Modif') 
+		{
+			$row = $this->vpdo->trouve_enfant ( $idenfant );
+			if ($row != null) 
+			{
+				$nom=$row->nom;
+				$prenom = $row->prenom;	
+				$specialite = $row->specialite;
+				
+					if (isset ( $row->commentaire )) 
+					{
+						$commentaire = $row->commentaire;
+					}				
+				
+				
+				
+			}
+		}
+			
+		
+			
+		$form = '
+			<article >
+				<h3>' . $titreform . '</h3>
+				<form id="formenfant" method="post" >				
+				<div >
+					Nom : <input type="text" name="nom" id="nom" placeholder="Nom de famille" value="' . $nom . '" required/></br>
+					Prenom : <input type="text" name="prenom" id="prenom" placeholder="Prenom de l\'enfant" value="' . $prenom . '" required/></br>
+					Specialite : <input type="text" name="specialite" id="specialite" value="' . $specialite . '" required/></br>
+					</div>					
+					<input id="submit" type="submit" name="send" class="button" value="' . $libelbutton . '" />
+				</form>
+				
+				<script>function hd(){ $(\'#modal\').hide();}</script>
+				<div  id="modal" >
+										<h1>Informations !</h1>
+										<div id="dialog1" ></div>
+										<a class="no" onclick="hd();">OK</a>
+				</div>
+				
+				
+			<article >
+			
+	<script>
+	$("#modal").hide();
+	//Initialize the tooltips
+	$("#formenfant :input").tooltipster({
+				         trigger: "custom",
+				         onlyOne: false,
+				         position: "bottom",
+				         multiple:true,
+				         autoClose:false});
+		jQuery.validator.addMethod(
+			  "regex",
+			   function(value, element, regexp) {
+			       if (regexp.constructor != RegExp)
+			          regexp = new RegExp(regexp);
+			       else if (regexp.global)
+			          regexp.lastIndex = 0;
+			          return this.optional(element) || regexp.test(value);
+			   },"erreur champs non valide"
+			);
+	$("#formenfant").submit(function( e ){
+        e.preventDefault();
+		$("#modal").hide();
+	
+		var $url="ajax/valide_ajout_enfant.php";
+		if($("#submit").prop("value")=="Modifier"){$url="ajax/valide_modif_enfant.php";}
+		if($("#submit").prop("value")=="Supprimer"){$url="ajax/valide_supp_enfant.php";}
+		if($("#formenfant").valid())
+		{
+			
+			var formData = {
+			"nom"			: $("#nom").val().toUpperCase(),
+			"prenom"		: $("#prenom").val(),
+			"specialite" 	: $("#specialite").val(),
+   			"commentaire"	: $("#commentaire").val(),
+			"id_famille"	: $("#id_famille").val(),
+			};
+				
+			var filterDataRequest = $.ajax(
+    		{
+	
+        		type: "POST",
+        		url: $url,
+        		dataType: "json",
+				encode          : true,
+        		data: formData,
+	
+			});
+			filterDataRequest.done(function(data)
+			{
+				if ( ! data.success)
+				{
+						var $msg="erreur-></br><ul style=\"list-style-type :decimal;padding:0 5%;\">";
+						if (data.errors.message) {
+							$x=data.errors.message;
+							$msg+="<li>";
+							$msg+=$x;
+							$msg+="</li>";
+							}
+						if (data.errors.requete) {
+							$x=data.errors.requete;
+							$msg+="<li>";
+							$msg+=$x;
+							$msg+="</li>";
+							}
+	
+						$msg+="</ul>";
+				}
+				else
+				{
+						$msg="";
+						if(data.message){$msg+="</br>";$x=data.message;$msg+=$x;}
+				}
+	
+					$("#dialog1").html($msg);$("#modal").show();
+	
+				});
+			filterDataRequest.fail(function(jqXHR, textStatus)
+			{
+	
+     			if (jqXHR.status === 0){alert("Not connect.n Verify Network.");}
+    			else if (jqXHR.status == 404){alert("Requested page not found. [404]");}
+				else if (jqXHR.status == 500){alert("Internal Server Error [500].");}
+				else if (textStatus === "parsererror"){alert("Requested JSON parse failed.");}
+				else if (textStatus === "timeout"){alert("Time out error.");}
+				else if (textStatus === "abort"){alert("Ajax request aborted.");}
+				else{alert("Uncaught Error.n" + jqXHR.responseText);}
+			});
+		}
+	});
+  
+	$("#formenfant").validate({
+		rules:
+		{
+							
+			"nom": {required: true},
+			"prenom": {required: true},
+			"specialite": {required: false}
+		},
+		messages:
+		{
+        	"nom":
+          	{
+            	required: "Vous devez saisir un nom valide"
+          	},
+			"prenom":
+          	{
+            	required: "Vous devez saisir un prenom valide"
+          	},			
+		},
+		errorPlacement: function (error, element) {
+			$(element).tooltipster("update", $(error).text());
+			$(element).tooltipster("show");
+		},
+		success: function (label, element)
+		{
+			$(element).tooltipster("hide");
+		}
+   	});
+	</script>
+	
+		';
+		return $form;
+	}
 
 	public function affiche_liste_famille($type) {
 		if ($type == 'Supp') {
