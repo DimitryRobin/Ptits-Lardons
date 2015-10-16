@@ -157,18 +157,22 @@ class mypdo extends PDO{
 	$nblignes=$this->connexion -> exec($requete);
     	if ($nblignes !=1)
     	{
-    		$errors['requete']='Problemes insertion enfant :'.$requete;
+				$errors['requete']='Problemes insertion enfant :'.$requete;
+			
+			if ( ! empty($errors)) 
+			{
+				$data['success'] = false;
+				$data['errors']  = $errors;
+			} 
+			else 
+			{
 		
-		if ( ! empty($errors)) {
-    		$data['success'] = false;
-    		$data['errors']  = $errors;
-    	} else {
-    
-    		$data['success'] = true;
-    		$data['message'] = 'Insertion famille ok!';
-    	}
+				$data['success'] = true;
+				$data['message'] = 'Insertion famille ok!';
+			}
     	return $data;
-    }
+		}
+	}
 
     public function modif_famille_admin($tab)
     {
