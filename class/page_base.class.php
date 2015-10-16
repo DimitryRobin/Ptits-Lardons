@@ -131,7 +131,7 @@ class page_base {
 										<p>12 rue des gones</br>
 										49000 ANGERS</br>
 										Tel : 02.41.27.11.71</br>
-										Mail : pbdc49@gmai.com</p>
+										Mail : pbdc49@gmail.com</p>
 										
 											<a  href="contact.php" class="button">Contact</a>
                 </article>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Sam 10 Janvier 2015 à 17:33
+-- Généré le :  Ven 16 Octobre 2015 à 17:35
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -55,7 +55,14 @@ CREATE TABLE IF NOT EXISTS `enfant` (
   `id_famille` int(3) NOT NULL,
   PRIMARY KEY (`id_enfant`),
   KEY `id_famille` (`id_famille`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `enfant`
+--
+
+INSERT INTO `enfant` (`id_enfant`, `nom`, `prenom`, `specificite`, `commentaire`, `id_famille`) VALUES
+(001, 'Bouhours', 'Natacha', 'bavarde', 'myope', 1);
 
 -- --------------------------------------------------------
 
@@ -92,7 +99,15 @@ CREATE TABLE IF NOT EXISTS `famille` (
   `date_envoi_mail_demande_inscription` date DEFAULT NULL,
   PRIMARY KEY (`id_famille`),
   UNIQUE KEY `identifiant` (`identifiant`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `famille`
+--
+
+INSERT INTO `famille` (`id_famille`, `identifiant`, `mp`, `nom1`, `prenom1`, `adresse11`, `adresse12`, `cp1`, `ville1`, `mail1`, `tel11`, `tel12`, `tel13`, `fonction1`, `nom2`, `prenom2`, `adresse21`, `adresse22`, `cp2`, `ville2`, `mail2`, `tel21`, `tel22`, `tel23`, `fonction2`, `date_envoi_mail_demande_inscription`) VALUES
+(1, 'famille1', '84675f2baf7140037b8f5afe54eef841', 'HERMANGE', 'Pierre', '18 rue des noyers', '', 49125, 'Tiercé', 'sdgdg@hotmail.fr', '0777888669', '0777888669', '0777888669', 'mere', '', '', '', '', '', '', '', '', '', '', 'mere', NULL),
+(2, 'famille2', '84675f2baf7140037b8f5afe54eef841', 'jean pierre', 'jordan', '12 rue des gosses', '12 rue des gosses', 49125, 'angers', 'lol@test.fr', '0852654598', '0852654598', '0852654598', 'pere', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -101,15 +116,22 @@ CREATE TABLE IF NOT EXISTS `famille` (
 --
 
 CREATE TABLE IF NOT EXISTS `personnel` (
-  `id_personnel` int(3) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) COLLATE utf8_bin NOT NULL,
-  `prenom` varchar(255) COLLATE utf8_bin NOT NULL,
-  `login` varchar(255) COLLATE utf8_bin NOT NULL,
-  `mdp` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_personnel` int(3) NOT NULL AUTO_INCREMENT,
+  `identifiant` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `mp` varchar(50) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id_personnel`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
--- --------------------------------------------------------
+--
+-- Contenu de la table `personnel`
+--
+
+INSERT INTO `personnel` (`id_personnel`, `identifiant`, `mp`) VALUES
+(1, 'personnel1', '84675f2baf7140037b8f5afe54eef841');
+
+--
+-- Contraintes pour les tables exportées
+--
 
 --
 -- Contraintes pour la table `enfant`
