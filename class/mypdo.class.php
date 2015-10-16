@@ -38,7 +38,10 @@ class mypdo extends PDO{
     if($tab['categ']=='famille'){	
     	$requete='select * from famille where identifiant="'.$tab['id'].'" and mp=MD5("'.$tab['mp'].'");';
     }
-    else{
+	if($tab['categ']=='personnel'){	
+    	$requete='select * from personnel where identifiant="'.$tab['id'].'" and mp=MD5("'.$tab['mp'].'");';
+    }
+    if($tab['categ']=='admin'){
     	$requete='select * from administrateur where identifiant="'.$tab['id'].'" and mp=MD5("'.$tab['mp'].'");';
     }
     	$result=$this->connexion ->query($requete);

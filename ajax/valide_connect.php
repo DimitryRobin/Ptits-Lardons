@@ -20,6 +20,7 @@ $tab['categ']=$_POST['categ'];
 
 
 $resultat = $mypdo->connect($tab);
+
 if(isset($resultat))
 {
 	$_SESSION['id']=$tab['id'];
@@ -28,7 +29,7 @@ if(isset($resultat))
 }
 else
 {
-	$errors['message']='Identifiant,mot de passe,catégorie invalide !';
+	$errors['message']='Identifiant, mot de passe et catégorie invalide !';
 }
 
 

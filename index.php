@@ -8,6 +8,9 @@ include_once('class/autoload.php');
 		if ($_SESSION['type']=='famille'){
 			$site = new page_base_securisee_famille('Accueil');
 		}
+		if ($_SESSION['type']=='personnel'){
+			$site = new page_base_securisee_personnel('Accueil');
+		}
 		if ($_SESSION['type']=='admin'){
 			$site = new page_base_securisee_admin('Accueil');
 		}

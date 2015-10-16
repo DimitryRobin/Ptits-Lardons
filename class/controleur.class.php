@@ -306,6 +306,7 @@ class controleur {
 					<input type="text" name="id" id="id" placeholder="Identifiant" required/>
 					<input type="password" name="mp" id="mp" placeholder="Mot de passe" required/></br>
 					<input type="radio" name="rblogin" id="rbf"  value="rbf" required/>Famille
+					<input type="radio" name="rblogin" id="rbper"  value="rbper" required/>Personnel
 					<input type="radio" name="rblogin" id="rba" value="rba" required/>Administrateur</br></br>
 					<input type="submit" name="send" class="button" value="Connexion" />
 				</form>
@@ -344,6 +345,7 @@ class controleur {
 		{
 			$categ="famille";		
 			if($("input[type=radio][name=rblogin]:checked").attr("value")=="rbf"){$categ="famille";}
+			if($("input[type=radio][name=rblogin]:checked").attr("value")=="rbper"){$categ="personnel";}
 			if($("input[type=radio][name=rblogin]:checked").attr("value")=="rba"){$categ="admin";}
 			var formData = {
 			"id" 					: $("#id").val().toUpperCase(),
@@ -424,7 +426,7 @@ class controleur {
           	},			
 			"rblogin":
 			{
-            	required: "Vous devez choisir famille ou administrateur"
+            	required: "Vous devez choisir famille ou personnel ou administrateur"
           	}
 		},
 		errorPlacement: function (error, element) {
