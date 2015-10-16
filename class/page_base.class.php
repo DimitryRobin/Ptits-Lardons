@@ -6,8 +6,8 @@ class page_base {
 	protected $style=array('base', 'modele');
 	protected $js=array('jquery.min','perso');
 	protected $menu;
-	protected $metadescription="Bienvenue à  l'accueil périscolaire de l'école les Ptits-Bouts-De-Choux";
-	protected $metakeyword=array('crèche','Accueil périscolaire','Petits Bouts De Choux' );
+	protected $metadescription="Bienvenue à  l'accueil périscolaire de l'école les Ptits-Lardons";
+	protected $metakeyword=array('crèche','Accueil périscolaire','Ptits-Lardons' );
 	protected $right_sidebar;
 	protected $left_sidebar;
 	

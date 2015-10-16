@@ -19,7 +19,5 @@ $tab['identifiant']=$_POST['identifiant'];
 
 $data=$mypdo-> supp_famille_admin($tab);
 
-
-
 echo json_encode($data);
 ?>
