@@ -55,6 +55,22 @@ class mypdo extends PDO{
     	}
     	return null;
     }
+	
+	public function trouve_enfant($idenfant)
+    {
+    	$requete='select * from enfant where id_enfant='.$idenfant.';';
+    	$result=$this->connexion ->query($requete);
+    	if ($result)
+    
+    	{
+    		if ($result-> rowCount()==1)
+    		{
+    			return ($result->fetch(PDO::FETCH_OBJ));
+    		}
+    	}
+    	return null;
+    }
+	
     public function trouve_famille($idfamille)
     {
     	$requete='select * from famille where id_famille='.$idfamille.';';
@@ -125,6 +141,41 @@ class mypdo extends PDO{
     	}
     	return $data;
     }
+	
+	public function insert_enfant_famille($tab)
+	{
+     	
+    	$errors         = array();  	
+    	$data 			= array();
+			
+		// attention le mot de passe est en clair tant que le mail de confirmation  n'est pas envoyé
+    	$requete='INSERT INTO enfant (nom,prenom,specificite)
+		VALUES ('
+    			.$this->connexion ->quote($tab['nom']) .','
+    			.$this->connexion ->quote($tab['prenom']) .','
+    			.$this->connexion ->quote($tab['specificite']) .','
+    			.');';
+		
+		
+	$nblignes=$this->connexion -> exec($requete);
+    	if ($nblignes !=1)
+    	{
+				$errors['requete']='Problemes insertion enfant :'.$requete;
+			
+			if ( ! empty($errors)) 
+			{
+				$data['success'] = false;
+				$data['errors']  = $errors;
+			} 
+			else 
+			{
+		
+				$data['success'] = true;
+				$data['message'] = 'Insertion famille ok!';
+			}
+    	return $data;
+		}
+	}
 
     public function modif_famille_admin($tab)
     {
