@@ -1027,6 +1027,11 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		$specifite = '';
 		$commentaire = '';
 		$id_famille = '' ;
+		$id_commentaire = '' ;
+		$libelle_commentaire = '' ;
+		$date_commentaire = '' ;
+		
+		$result2 = $this->vpdo->trouve_commentaire ( $idenfant ); 
 		
 		
 		if ($type == 'Consult') {
@@ -1034,7 +1039,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			$libelbutton = 'Consulter';
 		}
 		
-			
+		
 		$form = '
 			<article >
 				<h3>' . $titreform . '</h3>
@@ -1051,27 +1056,28 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 				td, th {padding: 6px;border: 1px solid #ccc;}
 				</style>
 				<article >
-				<h3>' . $titreform . '</h3><form method="post">
-    	<table>
+				<h3>' . $titreform . '</h3><form method="post">';
+			
+			
+			//test
+			
+			
+			
+			if ($result2 != false) {
+				
+				$retour2 .= '<table>
     		<thead>
         		<tr>
-            		<th >Identifiant Commentaire</th>
+            		<th >Id</th>
             		<th >Libelle</th>
             		<th >Date</th>
         		</tr>
     		</thead>
     		<tbody >';
-			$result2 = $this->vpdo->trouve_commentaire ( $idenfant ); 
-			var_dump($result2);
-			//test
-			
-			
-			if ($result2 != false) {
 				
-			while ( $row2 = $result2->fetch ( PDO::FETCH_OBJ ) )
+			while ( $row2 = $result2->fetch ( PDO::FETCH_OBJ ) ) //$result2->fetch ( PDO::FETCH_OBJ )
 			// parcourir chaque ligne sélectionnée
 			{
-
 				$retour2 = $retour2 . '<tr>
     			<td>' . $row2->id_commentaire  . '</td>
     			<td>' . $row2->libelle_commentaire . '</td>
@@ -1079,12 +1085,13 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
     			</tr>';
 			}			
 				
-				
-				
-			
-		}
+			}
+			else{
+						$retour2 = $retour2 . '</br><p>Aucun.</p>';
+					}
 		$retour2 = $retour2 . '</tbody></table></form></article>';
 		return $retour2;
+		
 				
 				$form .= '
 				
