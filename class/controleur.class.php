@@ -830,10 +830,11 @@ class controleur {
 	
 
 public function retourne_formulaire_enfant($type,$idenfant="") {
+		$id_enfant = '';
 		$form = '';		
 		$nom = '';
 		$prenom = '';
-		$specialite = '';
+		$specifite = '';
 		$commentaire = '';
 		$id_famille = '' ;
 		
@@ -851,6 +852,10 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			$titreform = 'Formulaire Modification enfant';
 			$libelbutton = 'Modifier';
 		}
+		if ($type == 'Consult') {
+			$titreform = 'Formulaire Consultation Enfant';
+			$libelbutton = 'Consulter';
+		}
 		if ($type == 'Supp' || $type == 'Modif') 
 		{
 			$row = $this->vpdo->trouve_enfant ( $idenfant );
@@ -858,7 +863,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			{
 				$nom=$row->nom;
 				$prenom = $row->prenom;	
-				$specialite = $row->specialite;
+				$specifite = $row->specifite;
 				
 					if (isset ( $row->commentaire )) 
 					{
@@ -879,7 +884,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 				<div >
 					Nom : <input type="text" name="nom" id="nom" placeholder="Nom de famille" value="' . $nom . '" required/></br>
 					Prenom : <input type="text" name="prenom" id="prenom" placeholder="Prenom de l\'enfant" value="' . $prenom . '" required/></br>
-					Specialite : <input type="text" name="specialite" id="specialite" value="' . $specialite . '" required/></br>
+					Specifite : <input type="text" name="specifite" id="specifite" value="' . $specifite . '" required/></br>
 					</div>					
 					<input id="submit" type="submit" name="send" class="button" value="' . $libelbutton . '" />
 				</form>
@@ -926,7 +931,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			var formData = {
 			"nom"			: $("#nom").val().toUpperCase(),
 			"prenom"		: $("#prenom").val(),
-			"specialite" 	: $("#specialite").val(),
+			"specifite" 	: $("#specifite").val(),
    			"commentaire"	: $("#commentaire").val(),
 			"id_famille"	: $("#id_famille").val(),
 			};
@@ -990,7 +995,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 							
 			"nom": {required: true},
 			"prenom": {required: true},
-			"specialite": {required: false}
+			"specifite": {required: false}
 		},
 		messages:
 		{
@@ -1067,8 +1072,9 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 	}
 	
 	public function affiche_consultation_enfant($type) {
+		
 		if ($type == 'Consult') {
-			$titreform = 'Consulation Enfant';
+			$titreform = 'Consultation Enfant';
 		}
 		if ($type == 'Modif') {
 			$titreform = 'Modification Enfant';
@@ -1097,16 +1103,16 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
     		</thead>
     		<tbody >';
 			$result = $this->vpdo->liste_enfant ();
+			
 			if ($result != false) {
 			while ( $row = $result->fetch ( PDO::FETCH_OBJ ) )
 			// parcourir chaque ligne sélectionnée
 			{
-				
 				$retour = $retour . '<tr>
     			<td>' . $row->id_enfant  . '</td>
     			<td>' . $row->nom . '</td>
     			<td>' . $row->prenom . '</td>
-				<td>' . $row->specialite . '</td>
+				<td>' . $row->specificite . '</td>
     			
     			<td Align=center><input onClick="this.form.submit();" type="checkbox" name="nom_checkbox[]" value="' . $row->id_enfant . '" /></td>
     			</tr>';

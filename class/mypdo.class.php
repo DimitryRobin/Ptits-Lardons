@@ -247,7 +247,7 @@ class mypdo extends PDO{
 	
 	public function liste_enfant()
     {
-    	$requete='select id_enfant, nom, prenom, specifite from enfant ;';
+    	$requete='select id_enfant, nom, prenom, specificite, id_famille from enfant ;';
     	$result=$this->connexion ->query($requete);
     	if ($result)
     	{
