@@ -852,10 +852,6 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			$titreform = 'Formulaire Modification enfant';
 			$libelbutton = 'Modifier';
 		}
-		if ($type == 'Consult') {
-			$titreform = 'Formulaire Consultation Enfant';
-			$libelbutton = 'Consulter';
-		}
 		if ($type == 'Supp' || $type == 'Modif') 
 		{
 			$row = $this->vpdo->trouve_enfant ( $idenfant );
@@ -887,6 +883,211 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 					Specifite : <input type="text" name="specifite" id="specifite" value="' . $specifite . '" required/></br>
 					</div>					
 					<input id="submit" type="submit" name="send" class="button" value="' . $libelbutton . '" />
+				</form>
+				
+				<script>function hd(){ $(\'#modal\').hide();}</script>
+				<div  id="modal" >
+										<h1>Informations !</h1>
+										<div id="dialog1" ></div>
+										<a class="no" onclick="hd();">OK</a>
+				</div>
+				
+				
+			<article >
+			
+	<script>
+	$("#modal").hide();
+	//Initialize the tooltips
+	$("#formenfant :input").tooltipster({
+				         trigger: "custom",
+				         onlyOne: false,
+				         position: "bottom",
+				         multiple:true,
+				         autoClose:false});
+		jQuery.validator.addMethod(
+			  "regex",
+			   function(value, element, regexp) {
+			       if (regexp.constructor != RegExp)
+			          regexp = new RegExp(regexp);
+			       else if (regexp.global)
+			          regexp.lastIndex = 0;
+			          return this.optional(element) || regexp.test(value);
+			   },"erreur champs non valide"
+			);
+	$("#formenfant").submit(function( e ){
+        e.preventDefault();
+		$("#modal").hide();
+	
+		var $url="ajax/valide_ajout_enfant.php";
+		if($("#submit").prop("value")=="Modifier"){$url="ajax/valide_modif_enfant.php";}
+		if($("#submit").prop("value")=="Supprimer"){$url="ajax/valide_supp_enfant.php";}
+		if($("#formenfant").valid())
+		{
+			
+			var formData = {
+			"nom"			: $("#nom").val().toUpperCase(),
+			"prenom"		: $("#prenom").val(),
+			"specifite" 	: $("#specifite").val(),
+   			"commentaire"	: $("#commentaire").val(),
+			"id_famille"	: $("#id_famille").val(),
+			};
+				
+			var filterDataRequest = $.ajax(
+    		{
+	
+        		type: "POST",
+        		url: $url,
+        		dataType: "json",
+				encode          : true,
+        		data: formData,
+	
+			});
+			filterDataRequest.done(function(data)
+			{
+				if ( ! data.success)
+				{
+						var $msg="erreur-></br><ul style=\"list-style-type :decimal;padding:0 5%;\">";
+						if (data.errors.message) {
+							$x=data.errors.message;
+							$msg+="<li>";
+							$msg+=$x;
+							$msg+="</li>";
+							}
+						if (data.errors.requete) {
+							$x=data.errors.requete;
+							$msg+="<li>";
+							$msg+=$x;
+							$msg+="</li>";
+							}
+	
+						$msg+="</ul>";
+				}
+				else
+				{
+						$msg="";
+						if(data.message){$msg+="</br>";$x=data.message;$msg+=$x;}
+				}
+	
+					$("#dialog1").html($msg);$("#modal").show();
+	
+				});
+			filterDataRequest.fail(function(jqXHR, textStatus)
+			{
+	
+     			if (jqXHR.status === 0){alert("Not connect.n Verify Network.");}
+    			else if (jqXHR.status == 404){alert("Requested page not found. [404]");}
+				else if (jqXHR.status == 500){alert("Internal Server Error [500].");}
+				else if (textStatus === "parsererror"){alert("Requested JSON parse failed.");}
+				else if (textStatus === "timeout"){alert("Time out error.");}
+				else if (textStatus === "abort"){alert("Ajax request aborted.");}
+				else{alert("Uncaught Error.n" + jqXHR.responseText);}
+			});
+		}
+	});
+  
+	$("#formenfant").validate({
+		rules:
+		{
+							
+			"nom": {required: true},
+			"prenom": {required: true},
+			"specifite": {required: false}
+		},
+		messages:
+		{
+        	"nom":
+          	{
+            	required: "Vous devez saisir un nom valide"
+          	},
+			"prenom":
+          	{
+            	required: "Vous devez saisir un prenom valide"
+          	},			
+		},
+		errorPlacement: function (error, element) {
+			$(element).tooltipster("update", $(error).text());
+			$(element).tooltipster("show");
+		},
+		success: function (label, element)
+		{
+			$(element).tooltipster("hide");
+		}
+   	});
+	</script>
+	
+		';
+		return $form;
+	}
+	
+	public function retourne_formulaire_enfant_commentaire($type,$idenfant) {
+		$id_enfant = '';
+		$form = '';		
+		$nom = '';
+		$prenom = '';
+		$specifite = '';
+		$commentaire = '';
+		$id_famille = '' ;
+		
+		
+		if ($type == 'Consult') {
+			$titreform = 'Commentaire(s)';
+			$libelbutton = 'Consulter';
+		}
+		
+			
+		$form = '
+			<article >
+				<h3>' . $titreform . '</h3>
+				<form id="formenfant" method="post" >';
+
+				
+				$retour2 = '
+				<style type="text/css">
+    			table {border-collapse: collapse;}
+				tr:nth-of-type(odd) {background: #eee;}
+				tr:nth-of-type(even) {background: #eff;}
+				tr{color: black;}
+				th {background: #333;color: white;}
+				td, th {padding: 6px;border: 1px solid #ccc;}
+				</style>
+				<article >
+				<h3>' . $titreform . '</h3><form method="post">
+    	<table>
+    		<thead>
+        		<tr>
+            		<th >Identifiant Commentaire</th>
+            		<th >Libelle</th>
+            		<th >Date</th>
+        		</tr>
+    		</thead>
+    		<tbody >';
+			$result2 = $this->vpdo->trouve_commentaire ( $idenfant ); 
+			var_dump($result2);
+			//test
+			
+			
+			if ($result2 != false) {
+				
+			while ( $row2 = $result2->fetch ( PDO::FETCH_OBJ ) )
+			// parcourir chaque ligne sélectionnée
+			{
+
+				$retour2 = $retour2 . '<tr>
+    			<td>' . $row2->id_commentaire  . '</td>
+    			<td>' . $row2->libelle_commentaire . '</td>
+    			<td>' . $row2->date_commentaire . '</td>
+    			</tr>';
+			}			
+				
+				
+				
+			
+		}
+		$retour2 = $retour2 . '</tbody></table></form></article>';
+		return $retour2;
+				
+				$form .= '
+				
 				</form>
 				
 				<script>function hd(){ $(\'#modal\').hide();}</script>

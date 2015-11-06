@@ -225,6 +225,24 @@ class mypdo extends PDO{
     	return false;
     }
 	
+public function trouve_commentaire($idenfant)
+    {
+    	$requete='SELECT c.id_enfant, libelle_commentaire, date_commentaire FROM commentaire as c inner join enfant as e on c.id_enfant=e.id_enfant where c.id_enfant='.$idenfant.';'; 
+    	$result=$this->connexion ->query($requete);
+		
+    	if ($result)
+    
+    	{
+    		if ($result-> rowCount()!=0) // probleme if ($result-> rowCount()==1)
+    		{
+				
+    			return ($result->fetch(PDO::FETCH_OBJ));
+				
+    		}
+    	}
+    	return false; //ou false
+    }
+	
 	public function supp_famille_admin($tab)
     {
 		$data 			= array();
