@@ -245,6 +245,21 @@ class mypdo extends PDO{
     	return false;
     }
 	
+	public function liste_enfant()
+    {
+    	$requete='select id_enfant, nom, prenom, specifite from enfant ;';
+    	$result=$this->connexion ->query($requete);
+    	if ($result)
+    	{
+    		if ($result-> rowCount()==0)
+    		{
+    			return false;
+    		}
+    		return $result;    
+    	}
+    	return false;
+    }
+	
 	public function supp_famille_admin($tab)
     {
 		$data 			= array();

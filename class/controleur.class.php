@@ -1065,6 +1065,56 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		$retour = $retour . '</tbody></table></form></article>';
 		return $retour;
 	}
+	
+	public function affiche_consultation_enfant($type) {
+		if ($type == 'Consult') {
+			$titreform = 'Consulation Enfant';
+		}
+		if ($type == 'Modif') {
+			$titreform = 'Modification Enfant';
+
+		}
+		$retour = '
+				<style type="text/css">
+    			table {border-collapse: collapse;}
+				tr:nth-of-type(odd) {background: #eee;}
+				tr:nth-of-type(even) {background: #eff;}
+				tr{color: black;}
+				th {background: #333;color: white;}
+				td, th {padding: 6px;border: 1px solid #ccc;}
+				</style>
+				<article >
+				<h3>' . $titreform . '</h3><form method="post">
+    	<table>
+    		<thead>
+        		<tr>
+            		<th >Identifiant Enfant</th>
+            		<th >Nom</th>
+            		<th >Prenom</th>
+    				<th >Spécifité</th>
+					<th >Voir commentaire(s)</th>
+        		</tr>
+    		</thead>
+    		<tbody >';
+			$result = $this->vpdo->liste_enfant ();
+			if ($result != false) {
+			while ( $row = $result->fetch ( PDO::FETCH_OBJ ) )
+			// parcourir chaque ligne sélectionnée
+			{
+				
+				$retour = $retour . '<tr>
+    			<td>' . $row->id_enfant  . '</td>
+    			<td>' . $row->nom . '</td>
+    			<td>' . $row->prenom . '</td>
+				<td>' . $row->specialite . '</td>
+    			
+    			<td Align=center><input onClick="this.form.submit();" type="checkbox" name="nom_checkbox[]" value="' . $row->id_enfant . '" /></td>
+    			</tr>';
+			}
+		}
+		$retour = $retour . '</tbody></table></form></article>';
+		return $retour;
+	}
 }
 
 ?>
