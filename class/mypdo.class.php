@@ -292,20 +292,7 @@ public function trouve_commentaire($idenfant)
 		}
 	}
 	
-	public function liste_enfant()
-    {
-    	$requete='select * from enfant ;';
-    	$result=$this->connexion ->query($requete);
-    	if ($result)
-    	{
-    		if ($result-> rowCount()==0)
-    		{
-    			return false;
-    		}
-    		return $result;    
-    	}
-    	return false;
-    }
+	/*  A GERER 
 	 public function modif_enfant_famille($tab)
     {
     
@@ -336,5 +323,6 @@ public function trouve_commentaire($idenfant)
     	}
     	return $data;
     }
+	*/
 }
 ?>
