@@ -142,41 +142,6 @@ class mypdo extends PDO{
     	return $data;
     }
 	
-	public function insert_enfant_famille($tab)
-	{
-     	
-    	$errors         = array();  	
-    	$data 			= array();
-			
-		// attention le mot de passe est en clair tant que le mail de confirmation  n'est pas envoyé
-    	$requete='INSERT INTO enfant (nom,prenom,specificite)
-		VALUES ('
-    			.$this->connexion ->quote($tab['nom']) .','
-    			.$this->connexion ->quote($tab['prenom']) .','
-    			.$this->connexion ->quote($tab['specificite']) .','
-    			.');';
-		
-		
-	$nblignes=$this->connexion -> exec($requete);
-    	if ($nblignes !=1)
-    	{
-				$errors['requete']='Problemes insertion enfant :'.$requete;
-			
-			if ( ! empty($errors)) 
-			{
-				$data['success'] = false;
-				$data['errors']  = $errors;
-			} 
-			else 
-			{
-		
-				$data['success'] = true;
-				$data['message'] = 'Insertion famille ok!';
-			}
-    	return $data;
-		}
-	}
-
     public function modif_famille_admin($tab)
     {
     
@@ -270,6 +235,86 @@ class mypdo extends PDO{
     		$data['success'] = true;
     		$data['message'] = 'Supression famille ok!';
 			
+    	return $data;
+    }
+	
+	public function insert_enfant_famille($tab)
+	{
+     	
+    	$errors         = array();  	
+    	$data 			= array();
+			
+		// attention le mot de passe est en clair tant que le mail de confirmation  n'est pas envoyé
+    	$requete='INSERT INTO enfant (nom,prenom,specificite)
+		VALUES ('
+    			.$this->connexion ->quote($tab['nom']) .','
+    			.$this->connexion ->quote($tab['prenom']) .','
+    			.$this->connexion ->quote($tab['specificite']) .','
+    			.');';
+		
+		
+	$nblignes=$this->connexion -> exec($requete);
+    	if ($nblignes !=1)
+    	{
+				$errors['requete']='Problemes insertion enfant :'.$requete;
+			
+			if ( ! empty($errors)) 
+			{
+				$data['success'] = false;
+				$data['errors']  = $errors;
+			} 
+			else 
+			{
+		
+				$data['success'] = true;
+				$data['message'] = 'Insertion famille ok!';
+			}
+    	return $data;
+		}
+	}
+	
+	public function liste_enfant()
+    {
+    	$requete='select * from enfant ;';
+    	$result=$this->connexion ->query($requete);
+    	if ($result)
+    	{
+    		if ($result-> rowCount()==0)
+    		{
+    			return false;
+    		}
+    		return $result;    
+    	}
+    	return false;
+    }
+	 public function modif_enfant_famille($tab)
+    {
+    
+    	 
+    	$errors         = array();
+    	$data 			= array();
+    
+    	$requete='update enfant'
+    	.'set nom='.$this->connexion ->quote($tab['nom']) .','
+    	.'prenom='.$this->connexion ->quote($tab['prenom']) .','
+    	.'specificite='.$this->connexion ->quote($tab['specificite']) .','
+    	
+     $nblignes=$this->connexion -> exec($requete);
+    if ($nblignes !=1)
+    {
+    	$errors['requete']='Pas de modifications d\'information :'.$requete;
+    }
+    
+    
+    
+    	if ( ! empty($errors)) {
+    		$data['success'] = false;
+    		$data['errors']  = $errors;
+    	} else {
+    
+    		$data['success'] = true;
+    		$data['message'] = 'Modification enfant ok!';
+    	}
     	return $data;
     }
 }

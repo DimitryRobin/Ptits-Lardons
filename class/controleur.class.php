@@ -1121,6 +1121,54 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		$retour = $retour . '</tbody></table></form></article>';
 		return $retour;
 	}
+	
+	public function affiche_liste_enfant($type) {
+		if ($type == 'Supp') {
+			$titreform = 'Suppression enfant';
+		}
+		if ($type == 'Modif') {
+			$titreform = 'Modification enfant';
+
+		}
+		$retour = '
+				<style type="text/css">
+    			table {border-collapse: collapse;}
+				tr:nth-of-type(odd) {background: #eee;}
+				tr:nth-of-type(even) {background: #eff;}
+				tr{color: black;}
+				th {background: #333;color: white;}
+				td, th {padding: 6px;border: 1px solid #ccc;}
+				</style>
+				<article >
+				<h3>' . $titreform . '</h3><form method="post">
+    	<table>
+    		<thead>
+        		<tr>
+            		<th >Nom</th>
+            		<th >Prénom</th>
+					<th >Specificite</th>
+    				<th ></th>
+        		</tr>
+    		</thead>
+    		<tbody >';
+			$result = $this->vpdo->liste_enfant ();
+			if ($result != false) {
+			while ( $row = $result->fetch ( PDO::FETCH_OBJ ) )
+			// parcourir chaque ligne sélectionnée
+			{
+				
+				$retour = $retour . '<tr>
+    			<td>' . $row->nom . '</td>
+    			<td>' . $row->prenom . '</td>
+				<td>' . $row->specificite . '</td>
+    			
+    			<td Align=center><input onClick="this.form.submit();" type="checkbox" name="nom_checkbox[]" value="' . $row->id_enfant . '" /></td>
+    			</tr>';
+			}
+		}
+		$retour = $retour . '</tbody></table></form></article>';
+		return $retour;
+	}
 }
 
 ?>
