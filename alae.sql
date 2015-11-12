@@ -129,7 +129,6 @@ CREATE TABLE IF NOT EXISTS `personnel` (
 INSERT INTO `personnel` (`id_personnel`, `identifiant`, `mp`) VALUES
 (1, 'personnel1', '84675f2baf7140037b8f5afe54eef841');
 
-
 --
 -- Contraintes pour les tables exportées
 --
