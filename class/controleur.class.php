@@ -834,7 +834,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		$form = '';		
 		$nom = '';
 		$prenom = '';
-		$specifite = '';
+		$specificite = '';
 		$commentaire = '';
 		$id_famille = '' ;
 		
@@ -859,7 +859,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			{
 				$nom=$row->nom;
 				$prenom = $row->prenom;	
-				$specifite = $row->specifite;
+				$specificite = $row->specificite;
 				
 					if (isset ( $row->commentaire )) 
 					{
@@ -880,7 +880,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 				<div >
 					Nom : <input type="text" name="nom" id="nom" placeholder="Nom de famille" value="' . $nom . '" required/></br>
 					Prenom : <input type="text" name="prenom" id="prenom" placeholder="Prenom de l\'enfant" value="' . $prenom . '" required/></br>
-					Specifite : <input type="text" name="specifite" id="specifite" value="' . $specifite . '" required/></br>
+					Specificite : <input type="text" name="specificite" id="specificite" value="' . $specificite . '" required/></br>
 					</div>					
 					<input id="submit" type="submit" name="send" class="button" value="' . $libelbutton . '" />
 				</form>
@@ -927,8 +927,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			var formData = {
 			"nom"			: $("#nom").val().toUpperCase(),
 			"prenom"		: $("#prenom").val(),
-			"specifite" 	: $("#specifite").val(),
-   			"commentaire"	: $("#commentaire").val(),
+			"specificite" 	: $("#specificite").val(),
 			"id_famille"	: $("#id_famille").val(),
 			};
 				
@@ -991,7 +990,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 							
 			"nom": {required: true},
 			"prenom": {required: true},
-			"specifite": {required: false}
+			"specificite": {required: false}
 		},
 		messages:
 		{
@@ -1024,7 +1023,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		$form = '';		
 		$nom = '';
 		$prenom = '';
-		$specifite = '';
+		$specificite = '';
 		$commentaire = '';
 		$id_famille = '' ;
 		$id_commentaire = '' ;
@@ -1139,7 +1138,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			var formData = {
 			"nom"			: $("#nom").val().toUpperCase(),
 			"prenom"		: $("#prenom").val(),
-			"specifite" 	: $("#specifite").val(),
+			"specificite" 	: $("#specificite").val(),
    			"commentaire"	: $("#commentaire").val(),
 			"id_famille"	: $("#id_famille").val(),
 			};
@@ -1203,7 +1202,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 							
 			"nom": {required: true},
 			"prenom": {required: true},
-			"specifite": {required: false}
+			"specificite": {required: false}
 		},
 		messages:
 		{

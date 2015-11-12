@@ -292,7 +292,7 @@ public function trouve_commentaire($idenfant)
 		}
 	}
 	
-	/*  A GERER 
+	
 	 public function modif_enfant_famille($tab)
     {
     
@@ -300,10 +300,10 @@ public function trouve_commentaire($idenfant)
     	$errors         = array();
     	$data 			= array();
     
-    	$requete='update enfant'
+    	$requete='update enfant '
     	.'set nom='.$this->connexion ->quote($tab['nom']) .','
     	.'prenom='.$this->connexion ->quote($tab['prenom']) .','
-    	.'specificite='.$this->connexion ->quote($tab['specificite']) .','
+    	.'specificite='.$this->connexion ->quote($tab['specificite']) .',';
     	
      $nblignes=$this->connexion -> exec($requete);
 	 
@@ -324,6 +324,6 @@ public function trouve_commentaire($idenfant)
     	}
     	return $data;
     }
-	*/
+	
 }
 ?>
