@@ -1253,7 +1253,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
     	<table>
     		<thead>
         		<tr>
-            		<th >Identifiant Famille</th>
+            		<th >Identifiant</th>
             		<th >Nom RP1</th>
             		<th >Prénom RP1</th>
     				<th ></th>
@@ -1302,7 +1302,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
     	<table>
     		<thead>
         		<tr>
-            		<th >Identifiant Enfant</th>
+            		<th >Identifiant</th>
             		<th >Nom</th>
             		<th >Prenom</th>
     				<th >Spécifité</th>

@@ -306,6 +306,7 @@ public function trouve_commentaire($idenfant)
     	.'specificite='.$this->connexion ->quote($tab['specificite']) .','
     	
      $nblignes=$this->connexion -> exec($requete);
+	 
     if ($nblignes !=1)
     {
     	$errors['requete']='Pas de modifications d\'information :'.$requete;

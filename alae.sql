@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 16 Octobre 2015 à 17:35
+-- Généré le :  Jeu 12 Novembre 2015 à 13:40
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -43,26 +43,52 @@ INSERT INTO `administrateur` (`id`, `identifiant`, `mp`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `commentaire`
+--
+
+CREATE TABLE IF NOT EXISTS `commentaire` (
+  `id_commentaire` int(4) NOT NULL AUTO_INCREMENT,
+  `libelle_commentaire` varchar(60) COLLATE utf8_bin NOT NULL,
+  `date_commentaire` date NOT NULL,
+  `id_enfant` int(3) NOT NULL,
+  PRIMARY KEY (`id_commentaire`),
+  KEY `id_enfant` (`id_enfant`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `commentaire`
+--
+
+INSERT INTO `commentaire` (`id_commentaire`, `libelle_commentaire`, `date_commentaire`, `id_enfant`) VALUES
+(1, 'mechant', '2015-11-04', 1),
+(2, 'Progresse très vite', '2015-11-21', 2),
+(3, 'Continue à dormir en cours', '2015-11-01', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `enfant`
 --
 
 CREATE TABLE IF NOT EXISTS `enfant` (
-  `id_enfant` int(3) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `id_enfant` int(3) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8_bin NOT NULL,
   `prenom` varchar(255) COLLATE utf8_bin NOT NULL,
   `specificite` varchar(255) COLLATE utf8_bin NOT NULL,
-  `commentaire` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_famille` int(3) NOT NULL,
   PRIMARY KEY (`id_enfant`),
   KEY `id_famille` (`id_famille`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `enfant`
 --
 
-INSERT INTO `enfant` (`id_enfant`, `nom`, `prenom`, `specificite`, `commentaire`, `id_famille`) VALUES
-(001, 'Bouhours', 'Natacha', 'bavarde', 'myope', 1);
+INSERT INTO `enfant` (`id_enfant`, `nom`, `prenom`, `specificite`, `id_famille`) VALUES
+(1, 'Bouhours', 'Natacha', 'bavarde', 1),
+(2, 'Jamain', 'Jordan', 'Très fort', 2),
+(3, 'Menant', 'Gaubert', 'Dort en cours', 1),
+(4, 'Hermange', 'Pierre', 'Pas de commentaire', 2);
 
 -- --------------------------------------------------------
 
@@ -128,7 +154,6 @@ CREATE TABLE IF NOT EXISTS `personnel` (
 
 INSERT INTO `personnel` (`id_personnel`, `identifiant`, `mp`) VALUES
 (1, 'personnel1', '84675f2baf7140037b8f5afe54eef841');
-
 
 --
 -- Contraintes pour les tables exportées
