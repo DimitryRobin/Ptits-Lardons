@@ -15,9 +15,9 @@ $data['success']=false;
 $mypdo=new mypdo();
 
 
-$tab['identifiant']=$_POST['identifiant'];
+$tab['idenfant']=$_POST['idenfant'];
 
-$data=$mypdo-> supp_famille_admin($tab);
+$data=$mypdo-> supp_enfant_famille($tab);
 
 echo json_encode($data);
 ?>

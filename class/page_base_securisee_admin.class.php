@@ -16,8 +16,8 @@ class page_base_securisee_admin extends page_base {
 					<li><a href="">Gestion des enfants </a>
 						<ul>
 							<li><a href="ajout_enfant_admin.php">Inscrire un enfant</a></li>
-							<li><a href="modif_enfant.php">Modifier un enfant</a></li>
-							<li><a href="supp_enfant.php">Supprimer un enfant</a></li>
+							<li><a href="modif_enfant_admin.php">Modifier un enfant</a></li>
+							<li><a href="supp_enfant_admin.php">Supprimer un enfant</a></li>
 						</ul>
 					</li>
 					<li><a href="">Gestion des Familles </a>

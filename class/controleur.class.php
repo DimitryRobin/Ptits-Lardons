@@ -830,15 +830,11 @@ class controleur {
 	
 
 public function retourne_formulaire_enfant($type,$idenfant="") {
-		$id_enfant = '';
-		$form = '';		
+		$form = '';
 		$nom = '';
 		$prenom = '';
 		$specificite = '';
-		$commentaire = '';
-		$id_famille = '' ;
-		
-		
+		$id_famille = '';
 
 		if ($type == 'Ajout') {
 			$titreform = 'Formulaire ajout enfant';
@@ -852,49 +848,37 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			$titreform = 'Formulaire Modification enfant';
 			$libelbutton = 'Modifier';
 		}
-		if ($type == 'Supp' || $type == 'Modif') 
-		{
+		if ($type == 'Supp' || $type == 'Modif') {
 			$row = $this->vpdo->trouve_enfant ( $idenfant );
-			if ($row != null) 
-			{
-				$nom=$row->nom;
-				$prenom = $row->prenom;	
+			if ($row != null) {
+				
+				$nom = $row->nom;
+				$prenom = $row->prenom;
 				$specificite = $row->specificite;
-				
-					if (isset ( $row->commentaire )) 
-					{
-						$commentaire = $row->commentaire;
-					}				
-				
-				
+				$id_famille = $row->id_famille;
 				
 			}
 		}
 			
-		
-			
 		$form = '
 			<article >
 				<h3>' . $titreform . '</h3>
-				<form id="formenfant" method="post" >				
+				<form id="formenfant" method="post" >
 				<div >
 					Nom : <input type="text" name="nom" id="nom" placeholder="Nom de famille" value="' . $nom . '" required/></br>
 					Prenom : <input type="text" name="prenom" id="prenom" placeholder="Prenom de l\'enfant" value="' . $prenom . '" required/></br>
 					Specificite : <input type="text" name="specificite" id="specificite" value="' . $specificite . '" required/></br>
-					</div>					
+				</div>		
+</br>				
 					<input id="submit" type="submit" name="send" class="button" value="' . $libelbutton . '" />
 				</form>
-				
 				<script>function hd(){ $(\'#modal\').hide();}</script>
 				<div  id="modal" >
 										<h1>Informations !</h1>
 										<div id="dialog1" ></div>
 										<a class="no" onclick="hd();">OK</a>
 				</div>
-				
-				
 			<article >
-			
 	<script>
 	$("#modal").hide();
 	//Initialize the tooltips
@@ -925,10 +909,10 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		{
 			
 			var formData = {
-			"nom"			: $("#nom").val().toUpperCase(),
-			"prenom"		: $("#prenom").val(),
-			"specificite" 	: $("#specificite").val(),
-			"id_famille"	: $("#id_famille").val(),
+		
+				"nom"						: $("nom").val().toUpperCase(),
+				"prenom"					: $("prenom").val(),
+				"specificite"				: $("specificite").val()
 			};
 				
 			var filterDataRequest = $.ajax(
@@ -987,10 +971,10 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 	$("#formenfant").validate({
 		rules:
 		{
-							
-			"nom": {required: true},
-			"prenom": {required: true},
-			"specificite": {required: false}
+			
+				"nom": {required: true},
+				"prenom": {required: true},
+				"specificite": {required: false}
 		},
 		messages:
 		{
@@ -1001,7 +985,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			"prenom":
           	{
             	required: "Vous devez saisir un prenom valide"
-          	},			
+          	}
 		},
 		errorPlacement: function (error, element) {
 			$(element).tooltipster("update", $(error).text());
@@ -1017,7 +1001,6 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		';
 		return $form;
 	}
-	
 	public function retourne_formulaire_enfant_commentaire($type,$idenfant) {
 		$id_enfant = '';
 		$form = '';		

@@ -286,7 +286,7 @@ public function trouve_commentaire($idenfant)
 			{
 		
 				$data['success'] = true;
-				$data['message'] = 'Insertion famille ok!';
+				$data['message'] = 'Insertion enfant ok!';
 			}
     	return $data;
 		}
@@ -322,6 +322,19 @@ public function trouve_commentaire($idenfant)
     		$data['success'] = true;
     		$data['message'] = 'Modification enfant ok!';
     	}
+    	return $data;
+    }
+	
+	public function supp_enfant_famille($tab)
+    {
+		$data 			= array();
+		
+    	$requete='delete from enfant where id_enfant='.$this->connexion ->quote($tab['idenfant']) .';';
+    	$result=$this->connexion ->query($requete);
+		
+    		$data['success'] = true;
+    		$data['message'] = 'Supression enfant ok!';
+			
     	return $data;
     }
 	
