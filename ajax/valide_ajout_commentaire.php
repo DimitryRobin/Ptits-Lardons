@@ -18,8 +18,8 @@ $data['success']=false;
 $mypdo=new mypdo();
 
 
+$tab['idenfant']=$_POST['idenfant'];
 $tab['commentaire']=$_POST['commentaire'];
-//$tab['idenfant']=$_POST['idenfant'];
 
 $data=$mypdo-> insert_commentaire($tab);
 

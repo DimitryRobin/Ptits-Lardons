@@ -15,7 +15,11 @@ $data['success']=false;
 $mypdo=new mypdo();
 
 
-$tab['idenfant']=$_POST['idenfant'];
+$tab['nom']=$_POST['nom'];
+$tab['prenom']=$_POST['prenom'];
+$tab['specificite']=$_POST['specificite'];
+$tab['id_enfant']=$_POST['id_enfant'];
+
 
 $data=$mypdo-> supp_enfant_famille($tab);
 

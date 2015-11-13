@@ -264,11 +264,12 @@ public function trouve_commentaire($idenfant)
     	$data 			= array();
 			
 		// attention le mot de passe est en clair tant que le mail de confirmation  n'est pas envoyé
-    	$requete='INSERT INTO enfant (nom,prenom,specificite)
+    	$requete='INSERT INTO enfant (nom,prenom,specificite, id_famille)
 		VALUES ('
     			.$this->connexion ->quote($tab['nom']) .','
     			.$this->connexion ->quote($tab['prenom']) .','
     			.$this->connexion ->quote($tab['specificite']) .','
+				.$this->connexion ->quote($tab['id_famille']) .','
     			.');';
 		
 		
@@ -300,10 +301,10 @@ public function trouve_commentaire($idenfant)
     	$errors         = array();
     	$data 			= array();
     
-    	$requete='update enfant '
-    	.'set nom='.$this->connexion ->quote($tab['nom']) .','
+    	$requete='update enfant set nom='.$this->connexion ->quote($tab['nom']) .','
     	.'prenom='.$this->connexion ->quote($tab['prenom']) .','
-    	.'specificite='.$this->connexion ->quote($tab['specificite']) .',';
+    	.'specificite='.$this->connexion ->quote($tab['specificite']) .' where id_enfant = '
+		.$this->connexion ->quote($tab['id_enfant']) .';';
     	
      $nblignes=$this->connexion -> exec($requete);
 	 
@@ -329,7 +330,7 @@ public function trouve_commentaire($idenfant)
     {
 		$data 			= array();
 		
-    	$requete='delete from enfant where id_enfant='.$this->connexion ->quote($tab['idenfant']) .';';
+    	$requete='delete from enfant where id_enfant='.$this->connexion ->quote($tab['id_enfant']) .';';
     	$result=$this->connexion ->query($requete);
 		
     		$data['success'] = true;
@@ -345,7 +346,7 @@ public function trouve_commentaire($idenfant)
     	$data 			= array();
 			
 		// attention le mot de passe est en clair tant que le mail de confirmation  n'est pas envoyé
-    	$requete='INSERT INTO commentaire (libelle_commentaire, date_commentaire, id_enfant)
+    	$requete='INSERT INTO commentaire (libelle_commentaire, date_commentaire, idenfant)
 		VALUES ('
     			.$this->connexion ->quote($tab['commentaire']) .','
     			.$this->connexion ->quote(DATE(NOW())) .','

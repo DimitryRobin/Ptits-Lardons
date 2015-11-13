@@ -23,6 +23,7 @@ $resultat = $mypdo->connect($tab);
 
 if(isset($resultat))
 {
+
 	$_SESSION['id']=$tab['id'];
 	$_SESSION['type']=$tab['categ'];
 	$data['success']=true;
