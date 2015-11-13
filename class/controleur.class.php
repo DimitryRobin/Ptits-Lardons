@@ -1001,6 +1001,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		';
 		return $form;
 	}
+	
 	public function retourne_formulaire_enfant_commentaire($type,$idenfant) {
 		$id_enfant = '';
 		$form = '';		
@@ -1348,6 +1349,228 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 			{
 				
 				$retour = $retour . '<tr>
+    			<td>' . $row->nom . '</td>
+    			<td>' . $row->prenom . '</td>
+				<td>' . $row->specificite . '</td>
+    			
+    			<td Align=center><input onClick="this.form.submit();" type="checkbox" name="nom_checkbox[]" value="' . $row->id_enfant . '" /></td>
+    			</tr>';
+			}
+		}
+		$retour = $retour . '</tbody></table></form></article>';
+		return $retour;
+	}
+	
+	public function retourne_formulaire_enfant_ajout_commentaire($type,$idenfant) {
+		$id_enfant = '';
+		$form = '';		
+		$nom = '';
+		$prenom = '';
+		$specificite = '';
+		$commentaire = '';
+		$id_famille = '' ;
+		$id_commentaire = '' ;
+		$libelle_commentaire = '' ;
+		$date_commentaire = '' ;
+		
+		if ($type == 'Modif') {
+			$titreform = 'Ajout d\'un commentaire';
+			$libelbutton = 'Ajouter';
+		}
+		
+		if ($type == 'Supp' || $type == 'Modif') {
+			$row = $this->vpdo->trouve_enfant ( $idenfant );
+			if ($row != null) {
+				
+				$nom = $row->nom;
+				$prenom = $row->prenom;
+				$specificite = $row->specificite;
+				$id_famille = $row->id_famille;
+				
+			}
+		}
+		
+		$form = '
+			<article >
+				<h3>' . $titreform . '</h3>
+				<form id="formenfant" method="post" >
+				<div >
+				</br>
+					Nom : <b>'.$nom.' </b></br>
+					Prenom : <b>'. $prenom . '</b></br></br>
+					Commentaire : <input type="text" size="30" name="commentaire" id="commentaire" placeholder="Votre commentaire sur l\'enfant" value="' . $commentaire . '" required/</br>
+					</br></br>
+					<input id="submit" type="submit" name="send" class="button" value="' . $libelbutton . '" />
+				
+				</div>
+				</form>
+				
+				<script>function hd(){ $(\'#modal\').hide();}</script>
+				<div  id="modal" >
+										<h1>Informations !</h1>
+										<div id="dialog1" ></div>
+										<a class="no" onclick="hd();">OK</a>
+				</div>
+				
+				
+			<article >
+			
+	<script>
+	$("#modal").hide();
+	//Initialize the tooltips
+	$("#formenfant :input").tooltipster({
+				         trigger: "custom",
+				         onlyOne: false,
+				         position: "bottom",
+				         multiple:true,
+				         autoClose:false});
+		jQuery.validator.addMethod(
+			  "regex",
+			   function(value, element, regexp) {
+			       if (regexp.constructor != RegExp)
+			          regexp = new RegExp(regexp);
+			       else if (regexp.global)
+			          regexp.lastIndex = 0;
+			          return this.optional(element) || regexp.test(value);
+			   },"erreur champs non valide"
+			);
+	$("#formenfant").submit(function( e ){
+        e.preventDefault();
+		$("#modal").hide();
+	
+		var $url="ajax/valide_ajout_enfant.php";
+		if($("#submit").prop("value")=="Ajouter"){$url="ajax/valide_modif_enfant.php";}
+		if($("#formenfant").valid())
+		{
+			
+			var formData = {
+				
+				"commentaire"	: $("#commentaire").val()
+			};
+				
+			var filterDataRequest = $.ajax(
+    		{
+	
+        		type: "POST",
+        		url: $url,
+        		dataType: "json",
+				encode          : true,
+        		data: formData,
+	
+			});
+			filterDataRequest.done(function(data)
+			{
+				if ( ! data.success)
+				{
+						var $msg="erreur-></br><ul style=\"list-style-type :decimal;padding:0 5%;\">";
+						if (data.errors.message) {
+							$x=data.errors.message;
+							$msg+="<li>";
+							$msg+=$x;
+							$msg+="</li>";
+							}
+						if (data.errors.requete) {
+							$x=data.errors.requete;
+							$msg+="<li>";
+							$msg+=$x;
+							$msg+="</li>";
+							}
+	
+						$msg+="</ul>";
+				}
+				else
+				{
+						$msg="";
+						if(data.message){$msg+="</br>";$x=data.message;$msg+=$x;}
+				}
+	
+					$("#dialog1").html($msg);$("#modal").show();
+	
+				});
+			filterDataRequest.fail(function(jqXHR, textStatus)
+			{
+	
+     			if (jqXHR.status === 0){alert("Not connect.n Verify Network.");}
+    			else if (jqXHR.status == 404){alert("Requested page not found. [404]");}
+				else if (jqXHR.status == 500){alert("Internal Server Error [500].");}
+				else if (textStatus === "parsererror"){alert("Requested JSON parse failed.");}
+				else if (textStatus === "timeout"){alert("Time out error.");}
+				else if (textStatus === "abort"){alert("Ajax request aborted.");}
+				else{alert("Uncaught Error.n" + jqXHR.responseText);}
+			});
+		}
+	});
+  
+	$("#formenfant").validate({
+		rules:
+		{			
+			"commentaire": {required: true}
+		},
+		messages:
+		{
+        	"nom":
+          	{
+            	required: "Vous devez saisir un nom valide"
+          	},
+			"prenom":
+          	{
+            	required: "Vous devez saisir un prenom valide"
+          	},			
+		},
+		errorPlacement: function (error, element) {
+			$(element).tooltipster("update", $(error).text());
+			$(element).tooltipster("show");
+		},
+		success: function (label, element)
+		{
+			$(element).tooltipster("hide");
+		}
+   	});
+	</script>
+	
+		';
+		return $form;
+	}
+	
+	public function affiche_modification_enfant($type) {
+		
+		if ($type == 'Consult') {
+			$titreform = 'Consultation Enfant';
+		}
+		if ($type == 'Modif') {
+			$titreform = 'Modification Enfant';
+
+		}
+		$retour = '
+				<style type="text/css">
+    			table {border-collapse: collapse;}
+				tr:nth-of-type(odd) {background: #eee;}
+				tr:nth-of-type(even) {background: #eff;}
+				tr{color: black;}
+				th {background: #333;color: white;}
+				td, th {padding: 6px;border: 1px solid #ccc;}
+				</style>
+				<article >
+				<h3>' . $titreform . '</h3><form method="post">
+    	<table>
+    		<thead>
+        		<tr>
+            		<th >Identifiant</th>
+            		<th >Nom</th>
+            		<th >Prenom</th>
+    				<th >Spécifité</th>
+					<th >Ajouter un commentaire</th>
+        		</tr>
+    		</thead>
+    		<tbody >';
+			$result = $this->vpdo->liste_enfant ();
+			
+			if ($result != false) {
+			while ( $row = $result->fetch ( PDO::FETCH_OBJ ) )
+			// parcourir chaque ligne sélectionnée
+			{
+				$retour = $retour . '<tr>
+    			<td>' . $row->id_enfant  . '</td>
     			<td>' . $row->nom . '</td>
     			<td>' . $row->prenom . '</td>
 				<td>' . $row->specificite . '</td>

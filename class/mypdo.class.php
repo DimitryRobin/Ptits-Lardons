@@ -338,5 +338,40 @@ public function trouve_commentaire($idenfant)
     	return $data;
     }
 	
+	public function insert_commentaire($tab)
+	{
+     	
+    	$errors         = array();  	
+    	$data 			= array();
+			
+		// attention le mot de passe est en clair tant que le mail de confirmation  n'est pas envoyé
+    	$requete='INSERT INTO commentaire (libelle_commentaire, date_commentaire, id_enfant)
+		VALUES ('
+    			.$this->connexion ->quote($tab['commentaire']) .','
+    			.$this->connexion ->quote(DATE(NOW())) .','
+    			.$this->connexion ->quote($tab['idenfant']) .','
+    			.') where id_enfant='.$this->connexion ->quote($tab['idenfant']) .';';
+		
+		
+	$nblignes=$this->connexion -> exec($requete);
+    	if ($nblignes !=1)
+    	{
+				$errors['requete']='Problemes insertion commentaire :'.$requete;
+			
+			if ( ! empty($errors)) 
+			{
+				$data['success'] = false;
+				$data['errors']  = $errors;
+			} 
+			else 
+			{
+		
+				$data['success'] = true;
+				$data['message'] = 'Insertion commentaire ok!';
+			}
+    	return $data;
+		}
+	}
+	
 }
 ?>
