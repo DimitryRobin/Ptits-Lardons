@@ -834,7 +834,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		$nom = '';
 		$prenom = '';
 		$specificite = '';
-		$id_famille = '';
+		$id_famille = 1;
 
 		if ($type == 'Ajout') {
 			
@@ -868,6 +868,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 					Nom : <input type="text" name="nom" id="nom" placeholder="Nom de famille" value="' . $nom . '" required/></br>
 					Prenom : <input type="text" name="prenom" id="prenom" placeholder="Prenom de l\'enfant" value="' . $prenom . '" required/></br>
 					Specificite : <input type="text" name="specificite" id="specificite" value="' . $specificite . '" required/></br>
+					id_famille : <input type="text" name="id_famille" id="id_famille" value="' . $id_famille . '" required/></br>
 					<input type="hidden" name="id_enfant" id="id_enfant" value="' . $idenfant . '" />
 					
 				</div>		
@@ -916,6 +917,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 				"prenom"					: $("#prenom").val(),
 				"specificite"				: $("#specificite").val(),
 				"id_enfant"	: $("#id_enfant").val(),
+				"id_famille" : $("#id_famille").val(),
 			};
 				
 			var filterDataRequest = $.ajax(
