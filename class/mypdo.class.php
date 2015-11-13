@@ -56,9 +56,9 @@ class mypdo extends PDO{
     	return null;
     }
 	
-	public function trouve_enfant($idenfant)
+	public function trouve_enfant($id_enfant)
     {
-    	$requete='select * from enfant where id_enfant='.$idenfant.';';
+    	$requete='select * from enfant where id_enfant='.$id_enfant.';';
     	$result=$this->connexion ->query($requete);
     	if ($result)
     
@@ -346,12 +346,11 @@ public function trouve_commentaire($idenfant)
     	$data 			= array();
 			
 		// attention le mot de passe est en clair tant que le mail de confirmation  n'est pas envoyé
-    	$requete='INSERT INTO commentaire (libelle_commentaire, date_commentaire, idenfant)
+    	$requete='INSERT INTO commentaire (libelle_commentaire, date_commentaire, id_enfant)
 		VALUES ('
     			.$this->connexion ->quote($tab['commentaire']) .','
     			.$this->connexion ->quote(DATE(NOW())) .','
-    			.$this->connexion ->quote($tab['idenfant']) .','
-    			.') where id_enfant='.$this->connexion ->quote($tab['idenfant']) .';';
+    			.$this->connexion ->quote($tab['id_enfant']) .';';
 		
 		
 	$nblignes=$this->connexion -> exec($requete);

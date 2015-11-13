@@ -14,7 +14,7 @@ $site->style='perso';
 $controleur=new controleur();
 
 $site-> right_sidebar=$site-> rempli_right_sidebar();
-$site-> left_sidebar=$controleur->retourne_formulaire_enfant_ajout_commentaire('Ajout');
+$site-> left_sidebar=$controleur->retourne_formulaire_enfant_ajout_commentaire('Modif');
 
 $site->affiche();
 ?>

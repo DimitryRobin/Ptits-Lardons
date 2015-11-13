@@ -1365,8 +1365,8 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		return $retour;
 	}
 	
-	public function retourne_formulaire_enfant_ajout_commentaire($type,$idenfant) {
-		$id_enfant = '';
+	public function retourne_formulaire_enfant_ajout_commentaire($type,$id_enfant) {
+		
 		$form = '';		
 		$nom = '';
 		$prenom = '';
@@ -1374,7 +1374,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		$commentaire = '';
 		$id_famille = '' ;
 		$id_commentaire = '' ;
-		$libelle_commentaire = '' ;
+		$commentaire = '' ;
 		$date_commentaire = '' ;
 		
 		if ($type == 'Modif') {
@@ -1383,8 +1383,9 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 		}
 		
 		if ($type == 'Supp' || $type == 'Modif') {
-			$row = $this->vpdo->trouve_enfant ( $idenfant );
+			$row = $this->vpdo->trouve_enfant ( $id_enfant );
 			if ($row != null) {
+			
 				
 				$nom = $row->nom;
 				$prenom = $row->prenom;
@@ -1403,7 +1404,7 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 					Nom : <b>'.$nom.' </b></br>
 					Prenom : <b>'. $prenom . '</b></br></br>
 					Commentaire : <input type="text" size="30" name="commentaire" id="commentaire" placeholder="Votre commentaire sur l\'enfant" value="' . $commentaire . '" required/</br>
-					 <input type="hidden" name="idenfant" id="idenfant" value="' . $idenfant . '" /</br>
+					 <input type="hidden" name="id_enfant" id="id_enfant" value="' . $id_enfant . '" /</br>
 					</br></br>
 					<input id="submit" type="submit" name="send" class="button" value="' . $libelbutton . '" />
 					
@@ -1444,15 +1445,17 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
         e.preventDefault();
 		$("#modal").hide();
 	
+	
 		var $url="ajax/valide_ajout_commentaire.php";
-		if($("#submit").prop("value")=="Ajouter"){$url="ajax/valide_ajout_commentaire.php";}
+		if($("#submit").prop("value")=="Modifier"){$url="";}
+		if($("#submit").prop("value")=="Supprimer"){$url="";}
 		if($("#formenfant").valid())
 		{
 			
 			var formData = {
 				
-				"idenfant"	: $("#idenfant").val(),
 				"commentaire"	: $("#commentaire").val(),
+				"id_enfant"	: $("#id_enfant").val(),
 			};
 				
 			var filterDataRequest = $.ajax(
@@ -1511,7 +1514,8 @@ public function retourne_formulaire_enfant($type,$idenfant="") {
 	$("#formenfant").validate({
 		rules:
 		{			
-			"commentaire": {required: true}
+			"commentaire": {required: true},
+			"id_enfant": {required: false}
 		},
 		messages:
 		{

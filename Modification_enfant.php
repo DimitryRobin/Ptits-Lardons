@@ -17,7 +17,7 @@ $site-> left_sidebar=$controleur->affiche_modification_enfant('Modif');
 if (isset($_POST["nom_checkbox"])){
 foreach ($_POST["nom_checkbox"] as $index => $value){
 	$site-> left_sidebar=$controleur->retourne_formulaire_enfant_ajout_commentaire('Modif',$value);
-	$_SESSION['id_enfant']=$value;
+	$_SESSION['idenfant']=$value;
 	break;
 }
 }
